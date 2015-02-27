@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+# scheduler-worker
+# Author: 	zhoubingzheng <zhoubingzheng@letv.com>
+#
+# chkconfig: 2345 09 91
+# description: scheduler worker
+
+### BEGIN INIT INFO
+# Provides:          letv
+# Required-Start:
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: scheduler worker
+### END INIT INFO
+
+NAME=scheduler-worker
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+# pull in sysconfig settings
+[ -f /etc/sysconfig/${NAME} ] && . /etc/sysconfig/${NAME}
+
+PIDFILE=/var/run/${NAME}.pid
+CONSOLELOG=/var/log/${NAME}/console.log
+
+start () {
+
+	if [ $UID -ne 0 ]; then
+		RET=1
+		failure
+	fi
+
+	[ -d $MM_LOG_DIR ] || mkdir -p $MM_LOG_DIR
+	chown $USER:$GROUP $MM_LOG_DIR
+
+	touch $PIDFILE
+	chown $USER:$GROUP $PIDFILE
+
+	MMCMD="python /opt/letv/worker/scheduler_work/worker.py >>$CONSOLELOG 2>&1 & 	\
+		echo "'$! >'"$PIDFILE"
+
+        echo -n $"Starting ${NAME}:"
+
+	daemon --pidfile $PIDFILE "/bin/su ${USER} -s /bin/sh -c '$MMCMD'"
+	RET=$?
+
+	[ $RET -eq 0 ] && touch /var/lock/subsys/${NAME}
+
+	echo
+	return $RET 
+}
+
+stop () {
+
+	echo -n $"Stopping ${NAME}: "
+	if [ $UID -ne 0 ]; then
+		RET=1
+		failure
+	else
+		killproc -p $PIDFILE
+		RET=$?
+		[ $RET -eq 0 ] &&	\
+			rm -f /var/lock/subsys/${NAME}
+	fi
+
+	echo
+        return $RET
+
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		start
+		;;
+	reload|force-reload)
+		# Nothing to do.
+		;;
+	status)
+		status -p $PIDFILE ${NAME}
+		;;
+	*)
+		echo $"Usage: $0 {start|stop|restart|reload|force-reload|condrestart|try-restart|status}"
+		exit 1
+		;;
+esac

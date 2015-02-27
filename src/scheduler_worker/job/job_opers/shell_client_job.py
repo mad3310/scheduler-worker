@@ -1,0 +1,21 @@
+#!/usr/bin/env python 2.6.6
+#-*- coding: utf-8 -*-
+
+'''
+Created on 2015-2-4
+
+@author: 
+'''
+
+from job.utils.invoke_command import InvokeCommand
+from job.job_opers.abstract_job_handler import AbstractJobHandler
+
+class ShellJobClientHandler(AbstractJobHandler):
+    
+    def __init__(self):
+        pass
+    
+    def run(self, shell_name):
+        assert shell_name
+        iv = InvokeCommand()
+        iv._runSysCmd(shell_name)
