@@ -20,7 +20,7 @@ class HttpRequestJobClientHandler(AbstractJobHandler):
         
     def run(self, url):
         assert url
-        resp = requests.get(url)
+        resp = requests.get(url,timeout=10)
         logging.info(resp.text)
         return resp.text
     
