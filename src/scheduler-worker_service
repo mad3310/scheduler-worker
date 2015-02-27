@@ -39,7 +39,7 @@ start () {
 	touch $PIDFILE
 	chown $USER:$GROUP $PIDFILE
 
-	MMCMD="python /opt/letv/scheduler-worker/scheduler_work/worker.py >>$CONSOLELOG 2>&1 & 	\
+	MMCMD="python /opt/letv/scheduler-worker/scheduler-work/worker.py >>$CONSOLELOG 2>&1 & 	\
 		echo "'$! >'"$PIDFILE"
 
         echo -n $"Starting ${NAME}:"
