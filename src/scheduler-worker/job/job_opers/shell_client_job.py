@@ -15,8 +15,9 @@ class ShellJobClientHandler(AbstractJobHandler):
     def __init__(self):
         pass
     
-    def run(self, param):
-        shell_name = param.get('shell_name')
+    def run(self, **kwargs):
+        param_dict = kwargs.pop('param_dict')
+        shell_name = param_dict.pop('shell_name')
         assert shell_name
         iv = InvokeCommand()
         iv._runSysCmd(shell_name)

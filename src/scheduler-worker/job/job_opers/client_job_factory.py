@@ -13,7 +13,7 @@ job_handler_dict = {
     'shellRequest': ShellJobClientHandler()
 }
 
-def client_job_run(job_type, param_dict):
+def client_job_run(job_type, **kwargs):
     
     if job_type is None:
         raise Exception("job_model should be not null!")
@@ -23,7 +23,7 @@ def client_job_run(job_type, param_dict):
                             [httpRequest,shellRequest]")
     
     _job_handler = job_handler_dict.get(job_type)
-    result = _job_handler.run(param_dict)
+    result = _job_handler.run(**kwargs)
     
     logging.debug(result)
         

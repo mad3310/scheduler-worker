@@ -12,18 +12,18 @@ from abc import abstractmethod
 class AbstractJobHandler(object):
 
     @abstractmethod
-    def create(self, args={}):
+    def create(self, **kwargs):
         raise NotImplementedError, "Cannot call abstract method"
 
     @abstractmethod
-    def run(self, args={}):
+    def run(self, **kwargs):
         raise NotImplementedError, "Cannot call abstract method"
 
     @abstractmethod
-    def stop(self, args={}):
+    def stop(self, **kwargs):
         raise NotImplementedError, "Cannot call abstract method"
 
     @abstractmethod
-    def destroy(self):
+    def destroy(self, **kwargs):
         raise NotImplementedError, "Cannot call abstract method"
 

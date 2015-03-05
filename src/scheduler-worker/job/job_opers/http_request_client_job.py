@@ -18,9 +18,10 @@ class HttpRequestJobClientHandler(AbstractJobHandler):
         constrcutor
         '''
         
-    def run(self, param):
-        url = param.get('url')
-        http_method = param.get('http_method')
+    def run(self, **kwargs):
+        param_dict = kwargs.pop('param_dict')
+        url = param_dict.pop('url')
+        http_method = param_dict.pop('http_method')
         assert url
         assert http_method
         
