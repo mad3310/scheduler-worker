@@ -18,9 +18,20 @@ class HttpRequestJobClientHandler(AbstractJobHandler):
         constrcutor
         '''
         
-    def run(self, url):
+    def run(self, param):
+        url = param.get('url')
+        http_method = param.get('http_method')
         assert url
-        resp = requests.get(url,timeout=10)
-        logging.info(resp.text)
+        assert http_method
+        
+        if 'get' == http_method:
+            resp = requests.get(url,timeout=2)
+        elif 'post' == http_method:
+            resp = requests.post(url, timeout=2)
+        elif 'delete' == http_method:
+            resp = requests.delete(url, timeout=2)
+        else:
+            resp = requests.put(url, timeout=2)
+        
         return resp.text
     
