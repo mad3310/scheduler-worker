@@ -1,5 +1,5 @@
-#!/usr/bin/env python 2.6.6
-#-*- coding: utf-8 -*-
+#!/usr/bin/env python
+# encoding: utf-8
 
 '''
 Created on 2015-2-4

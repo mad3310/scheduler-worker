@@ -1,9 +1,13 @@
 #!/usr/bin/env python
-#-*- coding: utf-8 -*-
+# encoding: utf-8
 
 import subprocess
 
 class InvokeCommand():
+
+    def __int__(self):
+        pass
+
     
     def _runSysCmd(self,cmdStr):
         if cmdStr == "":

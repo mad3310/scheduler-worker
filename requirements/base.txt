@@ -1,0 +1,8 @@
+# this file for base requirments of all kind enviroment
+wheel==0.29.0
+
+# Your custom base requirements go here
+
+requests==2.21.0
+apscheduler==3.6.0
+rq==1.0

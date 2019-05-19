@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
 '''
 Created on Feb 23, 2015
 
@@ -10,10 +13,11 @@ from job.job_opers.shell_client_job import ShellJobClientHandler
 
 job_handler_dict = {
     'httpRequest': HttpRequestJobClientHandler(),
-    'shellRequest': ShellJobClientHandler()
+    'shellRequest': ShellJobClientHandler(),
+    'httpRequestAccessInterface' : HttpRequestAccessInterfaceJobHandler()
 }
 
-def client_job_run(job_type, **kwargs):
+def client_job_run (job_type, **kwargs):
     
     if job_type is None:
         raise Exception("job_model should be not null!")
@@ -26,5 +30,3 @@ def client_job_run(job_type, **kwargs):
     result = _job_handler.run(**kwargs)
     
     logging.debug(result)
-        
-    

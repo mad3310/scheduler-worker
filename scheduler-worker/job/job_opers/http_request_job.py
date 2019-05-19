@@ -1,5 +1,5 @@
-#!/usr/bin/env python 2.6.6
-#-*- coding: utf-8 -*-
+#!/usr/bin/env python
+# encoding: utf-8
 
 '''
 Created on 2015-2-4
@@ -7,7 +7,6 @@ Created on 2015-2-4
 @author: 
 '''
 import requests
-import logging
 
 from job.job_opers.abstract_job_handler import AbstractJobHandler
 
@@ -26,7 +25,7 @@ class HttpRequestJobClientHandler(AbstractJobHandler):
         assert http_method
         
         if 'get' == http_method:
-            resp = requests.get(url,timeout=2)
+            resp = requests.get(url, timeout=2)
         elif 'post' == http_method:
             resp = requests.post(url, timeout=2)
         elif 'delete' == http_method:
@@ -35,4 +34,3 @@ class HttpRequestJobClientHandler(AbstractJobHandler):
             resp = requests.put(url, timeout=2)
         
         return resp.text
-    
