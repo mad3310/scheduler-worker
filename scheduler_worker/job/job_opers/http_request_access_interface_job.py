@@ -11,7 +11,7 @@ import requests
 import time
 import json
 
-from scheduler-worker.job.job_opers.abstract_job_handler import AbstractJobHandler
+from scheduler_worker.job.job_opers.abstract_job_handler import AbstractJobHandler
 
 class HttpRequestAccessInterfaceJobHandler(AbstractJobHandler):
     

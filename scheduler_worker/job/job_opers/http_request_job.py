@@ -8,7 +8,7 @@ Created on 2015-2-4
 '''
 import requests
 
-from job.job_opers.abstract_job_handler import AbstractJobHandler
+from scheduler_worker.job.job_opers.abstract_job_handler import AbstractJobHandler
 
 class HttpRequestJobClientHandler(AbstractJobHandler):
     
@@ -17,10 +17,9 @@ class HttpRequestJobClientHandler(AbstractJobHandler):
         constrcutor
         '''
         
-    def run(self, **kwargs):
-        param_dict = kwargs.pop('param_dict')
-        url = param_dict.pop('url')
-        http_method = param_dict.pop('http_method')
+    def run(self, request, **kwargs):
+        url = request.pop('url')
+        http_method = request.pop('http_method')
         assert url
         assert http_method
         
