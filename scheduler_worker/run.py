@@ -30,5 +30,5 @@ if __name__  ==  '__main__':
 
     with Connection(Redis(__host, __port)):
         q = Queue(__queue_name)
-        w = Worker(q)
+        w = Worker(q, exc_handler=worker_exc_handler)
         w.work()
