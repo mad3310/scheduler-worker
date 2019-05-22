@@ -1,31 +1,31 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-'''
-Created on 2015-2-4
-
-@author: 
-'''
-
 import requests
 import time
-import json
+import logging
 
 from scheduler_worker.job.job_opers.abstract_job_handler import AbstractJobHandler
+from scheduler_worker.job.utils.message_queue import MessageQueue
 
 class HttpRequestAccessInterfaceJobHandler(AbstractJobHandler):
-    
+
+
     def __init__(self):
         '''
         constrcutor
         '''
+        self.mq = MessageQueue.instance()
         
     def run(self, **kwargs):
-        param_dict = kwargs.pop('param_dict')
-        url = param_dict.pop('url')
-        http_method = param_dict.pop('http_method')
+        url = kwargs.get('url')
+        http_method = kwargs.get('http_method')
+        project_code = kwargs.get('project_code')
+        task_name = kwargs.get('task_name')
         assert url
         assert http_method
+        assert project_code
+        assert task_name
         
         if 'get' == http_method:
             resp = requests.get(url, timeout=2)
@@ -36,21 +36,28 @@ class HttpRequestAccessInterfaceJobHandler(AbstractJobHandler):
         else:
             resp = requests.put(url, timeout=2)
 
+#        print resp.text
+        resp_dict = resp.json()
+        result_type = resp_dict.get('resultType')
+
+        value = 0
+        if result_type == 'SUCCESS':
+            value = 1
+
         ts = int(time.time())
-        payload = [
-            {
-                "endpoint": "test-endpoint",
-                "metric": "test-metric",
-                "timestamp": ts,
-                "step": 60,
-                "value": 1,
-                "counterType": "GAUGE",
-                "tags": "idc=lg,loc=beijing",
-            },
-        ]
+        metric = ("%s-%s") % (project_code, task_name)
+        tags = "project_code:%s,monitor_item:%s" % (project_code, task_name)
 
-        r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(payload))
+        mesg_dict = {
+                    "endpoint": "scm-monitor",
+                    "metric": metric,
+                    "timestamp": ts,
+                    "step": 60,
+                    "value": value,
+                    "counterType": "GAUGE",
+                    "tags": tags,
+                }
+        MessageQueue.instance().queue.put(mesg_dict)
+        logging.info('message has added to queue.')
 
-        print r.text
-
-        return resp.text
+        return 'access request has finished and send result to queue'
