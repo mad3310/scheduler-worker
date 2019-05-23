@@ -7,7 +7,6 @@ import os
 from redis import Redis
 from rq import Connection, Queue, Worker
 from scheduler_worker.job.push_opers.message_push import MessageConsumer
-from scheduler_worker.job.utils.message_queue import MessageQueue
 
 # Setup logging for RQWorker if not already configured
 dirname = os.path.dirname
@@ -27,7 +26,6 @@ def worker_exc_handler(job, exc_type, exc_value, traceback):
 
 
 def main():
-    MessageQueue.instance()
 
     mc = MessageConsumer()
     mc.start()

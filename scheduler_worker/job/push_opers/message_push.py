@@ -3,7 +3,8 @@ import time
 import requests
 import json
 
-from scheduler_worker.job.utils.message_queue import MessageQueue
+from scheduler_worker.job.utils.file_opers import FileOpers
+
 
 class MessageConsumer(threading.Thread):
 
@@ -13,17 +14,12 @@ class MessageConsumer(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        payload = []
+        fo = FileOpers()
         while True:
-            qsize = MessageQueue.instance().queue.qsize()
-            print(qsize)
-            if qsize != 0:
-                for i in range(qsize):
-                    mesg_dict = MessageQueue.instance().queue.get(True)
-                    payload.append(mesg_dict)
-                print(payload)
+            payload = fo.loadFiletoJson('/tmp/scheduler-work-result')
+            print payload
+            if not payload == []:
                 r = requests.post("http://10.58.47.66:1987/v1/push", data=json.dumps(payload))
                 print r.text
-                payload =[]
 
             time.sleep(10)

@@ -9,7 +9,7 @@ Created on 2015-2-4
 
 from abc import abstractmethod
 
-class AbstractJobHandler (object) :
+class AbstractJobHandler (object):
 
     @abstractmethod
     def create(self, **kwargs):

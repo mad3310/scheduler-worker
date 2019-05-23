@@ -6,7 +6,7 @@ import time
 import logging
 
 from scheduler_worker.job.job_opers.abstract_job_handler import AbstractJobHandler
-from scheduler_worker.job.utils.message_queue import MessageQueue
+from scheduler_worker.job.utils.file_opers import FileOpers
 
 class HttpRequestAccessInterfaceJobHandler(AbstractJobHandler):
 
@@ -15,7 +15,7 @@ class HttpRequestAccessInterfaceJobHandler(AbstractJobHandler):
         '''
         constrcutor
         '''
-        self.mq = MessageQueue.instance()
+
         
     def run(self, **kwargs):
         url = kwargs.get('url')
@@ -57,7 +57,10 @@ class HttpRequestAccessInterfaceJobHandler(AbstractJobHandler):
                     "counterType": "GAUGE",
                     "tags": tags,
                 }
-        MessageQueue.instance().queue.put(mesg_dict)
+
+        fo = FileOpers()
+        fo.appendJsonToFile('/tmp/scheduler-work-result', mesg_dict)
+
         logging.info('message has added to queue.')
 
         return 'access request has finished and send result to queue'
