@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import logging
 
 class FileOpers(object):
 
@@ -96,7 +97,10 @@ class FileOpers(object):
             outputstream.write(json.dumps(json_info) + '\n')
             outputstream.close()
         finally:
-            os.remove(self.lockfilepath)
+            try:
+                os.remove(self.lockfilepath)
+            except Exception as errormesg:
+                logging.error('remove lock file error, the detail is %s' % errormesg)
 
 
 
@@ -123,7 +127,10 @@ class FileOpers(object):
 
             self.__emptyFile(filename)
         finally:
-            os.remove(self.lockfilepath)
+            try:
+                os.remove(self.lockfilepath)
+            except Exception as errormesg:
+                logging.error('remove lock file error, the detail is %s' % errormesg)
 
 
         return payload
