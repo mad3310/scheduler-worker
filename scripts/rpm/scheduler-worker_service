@@ -1,13 +1,13 @@
 #!/bin/sh
 #
 # scheduler-worker
-# Author: 	zhoubingzheng <zhoubingzheng@letv.com>
+# Author: 	zhoubingzheng <zhoubingzheng@sina.com>
 #
 # chkconfig: 2345 09 91
 # description: scheduler worker
 
 ### BEGIN INIT INFO
-# Provides:          letv
+# Provides:          zhoubingzheng
 # Required-Start:
 # Required-Stop:
 # Default-Start:     2 3 4 5
@@ -39,7 +39,7 @@ start () {
 	touch $PIDFILE
 	chown $USER:$GROUP $PIDFILE
 
-	MMCMD="python /opt/letv/scheduler-worker/scheduler-worker/worker.py >>$CONSOLELOG 2>&1 & 	\
+	MMCMD="python /opt/scheduler-worker/worker.py >>$CONSOLELOG 2>&1 & 	\
 		echo "'$! >'"$PIDFILE"
 
         echo -n $"Starting ${NAME}:"
