@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from scheduler_worker.job.utils.invoke_command import InvokeCommand
-from scheduler_worker.job.job_opers.abstract_job_handler import AbstractJobHandler
+from schedulerworker.job.utils.invoke_command import InvokeCommand
+from schedulerworker.job.job_opers.abstract_job_handler import AbstractJobHandler
 
 class ShellJobClientHandler(AbstractJobHandler):
     

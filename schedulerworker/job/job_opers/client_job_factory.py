@@ -8,9 +8,9 @@ Created on Feb 23, 2015
 '''
 import logging
 
-from scheduler_worker.job.job_opers.http_request_job import HttpRequestJobClientHandler
-from scheduler_worker.job.job_opers.shell_job import ShellJobClientHandler
-from scheduler_worker.job.job_opers.http_request_access_interface_job import HttpRequestAccessInterfaceJobHandler
+from schedulerworker.job.job_opers.http_request_job import HttpRequestJobClientHandler
+from schedulerworker.job.job_opers.shell_job import ShellJobClientHandler
+from schedulerworker.job.job_opers.http_request_access_interface_job import HttpRequestAccessInterfaceJobHandler
 
 
 

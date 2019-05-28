@@ -3,7 +3,7 @@ import time
 import requests
 import json
 
-from scheduler_worker.job.utils.file_opers import FileOpers
+from schedulerworker.job.utils.file_opers import FileOpers
 
 
 class MessageConsumer(threading.Thread):

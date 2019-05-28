@@ -5,8 +5,8 @@ import requests
 import time
 import logging
 
-from scheduler_worker.job.job_opers.abstract_job_handler import AbstractJobHandler
-from scheduler_worker.job.utils.file_opers import FileOpers
+from schedulerworker.job.job_opers.abstract_job_handler import AbstractJobHandler
+from schedulerworker.job.utils.file_opers import FileOpers
 
 class HttpRequestAccessInterfaceJobHandler(AbstractJobHandler):
 

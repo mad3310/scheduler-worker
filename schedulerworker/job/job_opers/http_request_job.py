@@ -8,7 +8,7 @@ Created on 2015-2-4
 '''
 import requests
 
-from scheduler_worker.job.job_opers.abstract_job_handler import AbstractJobHandler
+from schedulerworker.job.job_opers.abstract_job_handler import AbstractJobHandler
 
 class HttpRequestJobClientHandler(AbstractJobHandler):
     

@@ -6,7 +6,7 @@ import os
 
 from redis import Redis
 from rq import Connection, Queue, Worker
-from scheduler_worker.job.push_opers.message_push import MessageConsumer
+from schedulerworker.job.push_opers.message_push import MessageConsumer
 
 # Setup logging for RQWorker if not already configured
 dirname = os.path.dirname

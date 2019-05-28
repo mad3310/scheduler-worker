@@ -1,14 +1,31 @@
-# THIS FILE IS MANAGED BY THE GLOBAL REQUIREMENTS REPO - DO NOT EDIT
-import setuptools
+from setuptools import setup, find_packages
 
-# In python < 2.7.4, a lazy loading of package `pbr` will break
-# setuptools if some other modules registered functions in `atexit`.
-# solution from: http://bugs.python.org/issue15881#msg170215
-try:
-    import multiprocessing  # noqa
-except ImportError:
-    pass
+files = ["config/*"]
 
-setuptools.setup(
-    setup_requires=['pbr'],
-    pbr=True)
+setup(
+    name="schedulerworker",
+    version="1.0.0",
+    keywords=("schedulerworker"),
+    description="scheduler worker",
+    long_description="scheduler worker",
+    license="MIT Licence",
+
+    url="http://scheduler-worker.com",
+    author="zhoubingzheng",
+    author_email="zhoubingzheng@sina.com",
+
+    packages=find_packages(),
+    package_data = {'schedulerworker' : files },
+    include_package_data=False,
+    platforms="any",
+    install_requires=[
+        'requests==2.6.0',
+        'apscheduler==3.6.0',
+        'rq==1.0',
+    ],
+
+    scripts=[],
+    entry_points={
+
+    }
+)
