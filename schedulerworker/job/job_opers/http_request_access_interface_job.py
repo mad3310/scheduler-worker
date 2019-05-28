@@ -61,6 +61,6 @@ class HttpRequestAccessInterfaceJobHandler(AbstractJobHandler):
         fo = FileOpers()
         fo.appendJsonToFile('/tmp/scheduler-work-result', mesg_dict)
 
-        logging.info('message has added to queue.')
+        logging.debug('message has added to queue.')
 
         return 'access request has finished and send result to queue'

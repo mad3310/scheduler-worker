@@ -34,10 +34,14 @@ def main():
     __port = Redis_Properties.get('REDIS_PORT')
     __queue_name = Redis_Properties.get('QUEUE_NAME')
 
+    logging.info('scheduler worker has been started!')
+    logging.info('ready to connect the redis queue!')
+
     with Connection(Redis(__host, __port)):
         q = Queue(__queue_name)
         w = Worker(q, exc_handler=worker_exc_handler)
         w.work()
+
 
 
     
